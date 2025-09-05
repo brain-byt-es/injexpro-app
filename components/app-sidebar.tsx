@@ -3,16 +3,15 @@
 import * as React from 'react';
 import {
   IconDashboard,
-  IconUsers,
   IconBrain,
   IconSchool,
   IconHelp,
+  IconAlertTriangle,
   IconMessageHeart,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/nav-main';
 import { NavSecondary } from '@/components/nav-secondary';
-import { NavUser } from '@/components/nav-user';
 import {
   Sidebar,
   SidebarContent,
@@ -28,18 +27,23 @@ const navMain = [
     icon: IconDashboard,
   },
   {
-    title: 'Patients',
-    url: '/patients',
-    icon: IconUsers,
-  },
-  {
     title: 'Anatomy Atlas',
     url: '/atlas',
     icon: IconBrain,
+    // Submenu items for the Atlas
+    subItems: [
+      { title: 'Procedures', url: '/dashboard/atlas/procedures' },
+      { title: 'Muscles', url: '/dashboard/atlas/muscles' },
+    ],
   },
   {
-    title: 'Education',
-    url: '/education',
+    title: 'Complications',
+    url: '/dashboard/complications',
+    icon: IconAlertTriangle,
+  },
+  {
+    title: 'Resources',
+    url: '/dashboard/resources',
     icon: IconSchool,
   },
 ];
@@ -68,7 +72,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <NavSecondary items={navSecondary} className="mt-auto" />
-        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );
