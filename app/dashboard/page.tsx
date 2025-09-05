@@ -2,17 +2,14 @@ import { auth } from "@clerk/nextjs/server";
 import { adminSupabase } from "@/lib/supabase/admin";
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import { DataTable } from "@/components/data-table";
+import { procedureColumns } from "@/components/schemas/procedures/columns";
+import {
+  procedureTableSchema,
+  type ProcedureTableRow,
+} from "@/lib/schemas/procedure-table";
 
 export const revalidate = 0;
 export const dynamic = "force-dynamic";
-
-type ProcedureRow = {
-  id: string;
-  name: string;
-  area: string;
-  type: string;
-  created_at: string | null;
-};
 
 export default async function Page() {
   const { userId, redirectToSignIn } = await auth();
@@ -32,14 +29,17 @@ export default async function Page() {
   if (muscleCountRes.error) throw muscleCountRes.error;
   if (procListRes.error) throw procListRes.error;
 
-  const procedures = (procListRes.data ?? []) as ProcedureRow[];
-  const tableData = procedures.map((p) => ({
-    id: p.id,
-    name: p.name,
-    area: p.area,
-    type: p.type,
-    createdAt: p.created_at,
-  }));
+  const raw = procListRes.data ?? [];
+  const tableData: ProcedureTableRow[] = raw.map((p) =>
+    procedureTableSchema.parse({
+      id: p.id,
+      name: p.name,
+      area: p.area,
+      type: String(p.type),
+      createdAt: p.created_at ?? null,
+      status: undefined, // add if/when you compute a status
+    })
+  );
 
   return (
     <>
@@ -50,7 +50,11 @@ export default async function Page() {
 
       <ChartAreaInteractive />
 
-      <DataTable data={tableData} />
+      <DataTable
+        columns={procedureColumns}
+        data={tableData}
+        emptyMessage="No procedures found."
+      />
     </>
   );
 }

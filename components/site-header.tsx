@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { UserButton } from "@clerk/nextjs"
-import { User } from "lucide-react"
 
 export function SiteHeader() {
   return (

@@ -1,4 +1,3 @@
-import { IconBook, IconBrain, IconShieldHalf, IconTrendingUp } from "@tabler/icons-react";
 import {
   Card,
   CardDescription,

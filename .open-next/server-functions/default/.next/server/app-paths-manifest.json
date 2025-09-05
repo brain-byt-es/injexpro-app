@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/health/supabase/route": "app/api/health/supabase/route.js",
+  "/dashboard/atlas/muscles/page": "app/dashboard/atlas/muscles/page.js",
+  "/dashboard/atlas/procedures/page": "app/dashboard/atlas/procedures/page.js",
+  "/dashboard/complications/page": "app/dashboard/complications/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/sign-in/[[...sign-in]]/page": "app/sign-in/[[...sign-in]]/page.js",
+  "/sign-up/[[...sign-up]]/page": "app/sign-up/[[...sign-up]]/page.js"
+}
