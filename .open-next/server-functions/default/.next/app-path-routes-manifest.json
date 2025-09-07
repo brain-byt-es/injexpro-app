@@ -1,13 +1,13 @@
 {
-  "/_not-found/page": "/_not-found",
   "/api/health/route": "/api/health",
   "/api/health/supabase/route": "/api/health/supabase",
-  "/dashboard/atlas/muscles/page": "/dashboard/atlas/muscles",
-  "/dashboard/atlas/procedures/page": "/dashboard/atlas/procedures",
-  "/dashboard/complications/page": "/dashboard/complications",
-  "/dashboard/page": "/dashboard",
+  "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/",
   "/sign-in/[[...sign-in]]/page": "/sign-in/[[...sign-in]]",
-  "/sign-up/[[...sign-up]]/page": "/sign-up/[[...sign-up]]"
+  "/sign-up/[[...sign-up]]/page": "/sign-up/[[...sign-up]]",
+  "/dashboard/atlas/muscles/page": "/dashboard/atlas/muscles",
+  "/dashboard/complications/page": "/dashboard/complications",
+  "/dashboard/atlas/procedures/page": "/dashboard/atlas/procedures",
+  "/dashboard/page": "/dashboard"
 }
