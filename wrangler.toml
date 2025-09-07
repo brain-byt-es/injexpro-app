@@ -8,6 +8,9 @@ compatibility_flags = ["nodejs_compat"]
 directory = ".open-next/assets"
 binding = "ASSETS"
 
+[observability.logs]
+enabled = true
+
 [vars]
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_test_d2FybS1maW5jaC01MS5jbGVyay5hY2NvdW50cy5kZXYk"
 CLERK_SIGN_IN_URL = "/sign-in"
