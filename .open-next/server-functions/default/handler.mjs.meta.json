@@ -3246,8 +3246,8 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
-      "bytes": 22903,
+    ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
+      "bytes": 14071,
       "imports": [],
       "format": "cjs"
     },
@@ -3256,8 +3256,8 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
-      "bytes": 14071,
+    ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
+      "bytes": 22903,
       "imports": [],
       "format": "cjs"
     },
@@ -3315,9 +3315,9 @@
           "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\page_client-reference-manifest.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js",
+          "path": ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\complications\\page_client-reference-manifest.js"
+          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-up\\[[...sign-up]]\\page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js",
@@ -3325,9 +3325,9 @@
           "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-in\\[[...sign-in]]\\page_client-reference-manifest.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js",
+          "path": ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-up\\[[...sign-up]]\\page_client-reference-manifest.js"
+          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\complications\\page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/dashboard/atlas/procedures/page_client-reference-manifest.js",
@@ -7474,14 +7474,14 @@
         ".open-next/server-functions/default/.next/server/app/dashboard/page_client-reference-manifest.js": {
           "bytesInOutput": 23748
         },
-        ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
-          "bytesInOutput": 21924
+        ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
+          "bytesInOutput": 13386
         },
         ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js": {
           "bytesInOutput": 13386
         },
-        ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
-          "bytesInOutput": 13386
+        ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
+          "bytesInOutput": 21924
         },
         ".open-next/server-functions/default/.next/server/app/dashboard/atlas/procedures/page_client-reference-manifest.js": {
           "bytesInOutput": 20308
