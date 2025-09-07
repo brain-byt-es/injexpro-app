@@ -5,7 +5,7 @@ R.c("server/chunks/ssr/node_modules_next_dist_compiled_@opentelemetry_api_index_
 R.c("server/chunks/ssr/node_modules_3412d25a._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_bffb7653._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__9e697041._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__149b393f._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__28dc93e7._.js")
 R.c("server/chunks/ssr/app_0ef037c1._.js")
 R.c("server/chunks/ssr/node_modules_e27ef2b3._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_bea52298._.js")

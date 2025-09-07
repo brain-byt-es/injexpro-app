@@ -3232,42 +3232,42 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js": {
-      "bytes": 14950,
+      "bytes": 13822,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-      "bytes": 13376,
+      "bytes": 13394,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/dashboard/page_client-reference-manifest.js": {
-      "bytes": 24771,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
-      "bytes": 14053,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js": {
-      "bytes": 14053,
+      "bytes": 24789,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
-      "bytes": 22885,
+      "bytes": 22903,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js": {
+      "bytes": 14071,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
+      "bytes": 14071,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/dashboard/atlas/procedures/page_client-reference-manifest.js": {
-      "bytes": 21218,
+      "bytes": 21236,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/dashboard/atlas/muscles/page_client-reference-manifest.js": {
-      "bytes": 22875,
+      "bytes": 22893,
       "imports": [],
       "format": "cjs"
     },
@@ -3277,7 +3277,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-      "bytes": 46278,
+      "bytes": 47156,
       "imports": [
         {
           "path": "path",
@@ -3315,9 +3315,9 @@
           "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\page_client-reference-manifest.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js",
+          "path": ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-up\\[[...sign-up]]\\page_client-reference-manifest.js"
+          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\complications\\page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js",
@@ -3325,9 +3325,9 @@
           "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-in\\[[...sign-in]]\\page_client-reference-manifest.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js",
+          "path": ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\dashboard\\complications\\page_client-reference-manifest.js"
+          "original": "C:\\Users\\Henrik\\Desktop\\PYProj\\InjexPro App\\injexpro-app\\.open-next\\server-functions\\default\\.next\\server\\app\\sign-up\\[[...sign-up]]\\page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/dashboard/atlas/procedures/page_client-reference-manifest.js",
@@ -6229,7 +6229,7 @@
       "format": "esm"
     },
     ".open-next/server-functions/default/index.mjs": {
-      "bytes": 77199,
+      "bytes": 78426,
       "imports": [
         {
           "path": "node:module",
@@ -7466,34 +7466,34 @@
           "bytesInOutput": 586
         },
         ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js": {
-          "bytesInOutput": 14193
+          "bytesInOutput": 13120
         },
         ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-          "bytesInOutput": 12693
+          "bytesInOutput": 12711
         },
         ".open-next/server-functions/default/.next/server/app/dashboard/page_client-reference-manifest.js": {
-          "bytesInOutput": 23730
-        },
-        ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
-          "bytesInOutput": 13368
-        },
-        ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js": {
-          "bytesInOutput": 13368
+          "bytesInOutput": 23748
         },
         ".open-next/server-functions/default/.next/server/app/dashboard/complications/page_client-reference-manifest.js": {
-          "bytesInOutput": 21906
+          "bytesInOutput": 21924
+        },
+        ".open-next/server-functions/default/.next/server/app/sign-in/[[...sign-in]]/page_client-reference-manifest.js": {
+          "bytesInOutput": 13386
+        },
+        ".open-next/server-functions/default/.next/server/app/sign-up/[[...sign-up]]/page_client-reference-manifest.js": {
+          "bytesInOutput": 13386
         },
         ".open-next/server-functions/default/.next/server/app/dashboard/atlas/procedures/page_client-reference-manifest.js": {
-          "bytesInOutput": 20290
+          "bytesInOutput": 20308
         },
         ".open-next/server-functions/default/.next/server/app/dashboard/atlas/muscles/page_client-reference-manifest.js": {
-          "bytesInOutput": 21896
+          "bytesInOutput": 21914
         },
         ".open-next/server-functions/default/.next/server/app/api/health/supabase/route_client-reference-manifest.js": {
           "bytesInOutput": 479
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-          "bytesInOutput": 33537
+          "bytesInOutput": 34351
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
           "bytesInOutput": 14549
@@ -7919,10 +7919,10 @@
           "bytesInOutput": 4957
         },
         ".open-next/server-functions/default/index.mjs": {
-          "bytesInOutput": 54129
+          "bytesInOutput": 55281
         }
       },
-      "bytes": 2590330
+      "bytes": 2591349
     }
   }
 }
