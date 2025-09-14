@@ -1,12 +1,16 @@
-// app/api/health/supabase/route.ts
-import { adminSupabase } from "@/lib/supabase/admin";
+import { NextResponse } from 'next/server';
+import { supabaseClient } from '@/lib/supabase/client';
 
 export async function GET() {
-  const { data, error } = await adminSupabase.from("muscles").select("id").limit(1);
+  const sb = await supabaseClient(); // ✅ await the async factory
+
+  const { data, error } = await sb
+    .from('library_procedures')
+    .select('id')
+    .limit(1);
+
   if (error) {
-    return new Response(JSON.stringify({ ok: false, error: error.message }), { status: 500 });
+    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   }
-  return new Response(JSON.stringify({ ok: true, sample: data ?? [] }), {
-    headers: { "content-type": "application/json" },
-  });
+  return NextResponse.json({ ok: true, rows: data?.length ?? 0 });
 }

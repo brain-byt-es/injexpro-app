@@ -27,19 +27,15 @@ const navMain = [
     icon: IconDashboard,
   },
   {
-    title: 'Anatomy Atlas',
-    url: '/atlas',
+    title: 'Library',
+    url: '/dashboard/library',
     icon: IconBrain,
     // Submenu items for the Atlas
     subItems: [
-      { title: 'Procedures', url: '/dashboard/atlas/procedures' },
-      { title: 'Muscles', url: '/dashboard/atlas/muscles' },
+      { title: 'Procedures', url: '/dashboard/library/procedures' },
+      { title: 'Muscles', url: '/dashboard/library/muscles' },
+      { title: 'Complications', url: '/dashboard/library/complications' },
     ],
-  },
-  {
-    title: 'Complications',
-    url: '/dashboard/complications',
-    icon: IconAlertTriangle,
   },
   {
     title: 'Resources',
