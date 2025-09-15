@@ -8,7 +8,7 @@ import { ReferenceList, type RefItem } from "@/components/dashboard/reference-li
 
 // Optional — remove if you’re not wiring saves/notes yet
 import { getSaved, getNote } from "@/lib/db/queries";
-import { SaveHeart, NoteBox } from "@/components/dashboard/save-controls";
+import { SaveHeart } from "@/components/dashboard/save-controls";
 
 export const revalidate = 0;
 export const dynamic = "force-dynamic";

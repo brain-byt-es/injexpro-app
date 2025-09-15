@@ -6,7 +6,6 @@ import {
   IconBrain,
   IconSchool,
   IconHelp,
-  IconAlertTriangle,
   IconMessageHeart,
 } from '@tabler/icons-react';
 

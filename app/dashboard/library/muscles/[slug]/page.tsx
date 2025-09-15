@@ -13,20 +13,20 @@ import { SaveHeart, NoteBox } from "@/components/dashboard/save-controls";
 export const revalidate = 0;
 export const dynamic = "force-dynamic";
 
-type Muscle = {
-  id: string;
-  slug: string;
-  name: string;
-  abbr?: string | null;
-  anatomical_region: string | null;
-  function_short?: string | null;
-  innervation_nerve?: string | null;
-  innervation_root?: string | null;
-  indications: string[] | null;
-  has_ultrasound_window: boolean;
-  safety_flags: string[] | null;
-  updated_at?: string | null;
-};
+//type Muscle = {
+  //id: string;
+  //slug: string;
+  //name: string;
+  //abbr?: string | null;
+  //anatomical_region: string | null;
+  //function_short?: string | null;
+  //innervation_nerve?: string | null;
+  //innervation_root?: string | null;
+  //indications: string[] | null;
+  //has_ultrasound_window: boolean;
+  //safety_flags: string[] | null;
+  //updated_at?: string | null;
+//};
 
 export default async function MusclePage({ params }: { params: { slug: string } }) {
   const sb = await supabaseClient();
