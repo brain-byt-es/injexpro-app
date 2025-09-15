@@ -235,7 +235,7 @@ export function MuscleLibrary({ initialItems }: { initialItems: Muscle[] }) {
               {filtered.length ? filtered.map((m) => (
                 <TableRow key={m.id}>
                   <TableCell className="font-medium">
-                    <Link href={`/dashboard/atlas/muscles/${m.slug}`} className="hover:underline">
+                    <Link href={`/dashboard/library/muscles/${m.slug}`} className="hover:underline">
                       {m.name}
                     </Link>
                     {m.abbr ? <span className="text-muted-foreground"> ({m.abbr})</span> : null}
@@ -346,7 +346,7 @@ function MultiSelectList(props: {
 
 function MuscleCard({ m }: { m: Muscle }) {
   return (
-    <Link href={`/dashboard/atlas/muscles/${m.slug}`} className="group block rounded-2xl border p-4 transition hover:border-primary/40 hover:shadow-md">
+    <Link href={`/dashboard/library/muscles/${m.slug}`} className="group block rounded-2xl border p-4 transition hover:border-primary/40 hover:shadow-md">
       <div className="text-base font-semibold">
         {m.name} {m.abbr ? <span className="font-normal text-muted-foreground">({m.abbr})</span> : null}
       </div>

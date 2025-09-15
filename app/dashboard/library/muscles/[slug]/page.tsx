@@ -1,3 +1,4 @@
+// app/dashboard/atlas/muscles/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { supabaseClient } from "@/lib/supabase/client";
@@ -6,6 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { SafetyBanner } from "@/components/dashboard/safety-banner";
 import { QuickFactsCard } from "@/components/dashboard/quick-facts-card";
 import { ReferenceList, type RefItem } from "@/components/dashboard/reference-list";
+import { getSaved, getNote } from "@/lib/db/queries";
+import { SaveHeart, NoteBox } from "@/components/dashboard/save-controls";
 
 export const revalidate = 0;
 export const dynamic = "force-dynamic";
@@ -31,7 +34,9 @@ export default async function MusclePage({ params }: { params: { slug: string } 
   const [{ data: muscle, error: mErr }, { data: refs, error: rErr }] = await Promise.all([
     sb
       .from("muscles")
-      .select("id, slug, name, abbr, anatomical_region, function_short, innervation_nerve, innervation_root, indications, has_ultrasound_window, safety_flags, updated_at")
+      .select(
+        "id, slug, name, abbr, anatomical_region, function_short, innervation_nerve, innervation_root, indications, has_ultrasound_window, safety_flags, updated_at"
+      )
       .eq("slug", params.slug)
       .single(),
     sb
@@ -48,6 +53,12 @@ export default async function MusclePage({ params }: { params: { slug: string } 
   if (!muscle) return notFound();
   if (rErr) console.error("Supabase[muscle:refs]", { message: rErr.message, hint: (rErr as any).hint });
 
+  // NEW: fetch saved state + private note
+  const [initiallySaved, initialNote] = await Promise.all([
+    getSaved("muscle", muscle.slug),
+    getNote("muscle", muscle.slug),
+  ]);
+
   const refItems: RefItem[] = (refs ?? [])
     .map((r: any) => r.reference)
     .filter(Boolean);
@@ -58,29 +69,32 @@ export default async function MusclePage({ params }: { params: { slug: string } 
       <div className="grid gap-6 md:grid-cols-[1fr_320px]">
         {/* LEFT */}
         <div className="space-y-6">
-          {/* Hero */}
-          <div className="space-y-2">
-            <h1 className="text-2xl font-semibold">
-              {muscle.name}{" "}
-              {muscle.abbr ? <span className="text-muted-foreground">({muscle.abbr})</span> : null}
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              {muscle.anatomical_region ?? "—"} • {muscle.function_short ?? "—"} • {muscle.innervation_nerve ?? "—"}
-              {muscle.innervation_root ? ` (${muscle.innervation_root})` : ""}
-            </p>
+          {/* Hero + Save */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-2">
+              <h1 className="text-2xl font-semibold">
+                {muscle.name}{" "}
+                {muscle.abbr ? <span className="text-muted-foreground">({muscle.abbr})</span> : null}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {muscle.anatomical_region ?? "—"} • {muscle.function_short ?? "—"} • {muscle.innervation_nerve ?? "—"}
+                {muscle.innervation_root ? ` (${muscle.innervation_root})` : ""}
+              </p>
+            </div>
+            <SaveHeart kind="muscle" slug={muscle.slug} initiallySaved={initiallySaved} />
           </div>
 
           {/* Safety banner (critical flags) */}
-          <SafetyBanner flags={muscle.safety_flags ?? []} />
+          <SafetyBanner flags={(muscle.safety_flags ?? []) as string[]} />
 
           {/* Badges + chips */}
           <div className="flex flex-wrap gap-2">
             {muscle.has_ultrasound_window ? <Badge variant="outline">US window</Badge> : null}
             {(muscle.safety_flags ?? []).map((f: string) => (
-                <Badge key={f} variant="destructive" className="capitalize">
-                    {f.replaceAll("-", " ")}
-                </Badge>
-                ))}
+              <Badge key={f} variant="destructive" className="capitalize">
+                {f.replaceAll("-", " ")}
+              </Badge>
+            ))}
           </div>
 
           {/* Indication chips (navigate to library w/ facet) */}
@@ -88,11 +102,11 @@ export default async function MusclePage({ params }: { params: { slug: string } 
             <div className="flex flex-wrap gap-2">
               {(muscle.indications ?? []).slice(0, 8).map((tag: string) => (
                 <Link
-                    key={tag}
-                    href={`/dashboard/atlas/muscles?q=${encodeURIComponent(tag)}`}
-                    className="inline-flex items-center rounded-full border px-3 py-1 text-sm hover:bg-muted capitalize"
+                  key={tag}
+                  href={`/dashboard/atlas/muscles?q=${encodeURIComponent(tag)}`}
+                  className="inline-flex items-center rounded-full border px-3 py-1 text-sm hover:bg-muted capitalize"
                 >
-                    {tag.replaceAll("-", " ")}
+                  {tag.replaceAll("-", " ")}
                 </Link>
               ))}
             </div>
@@ -107,7 +121,7 @@ export default async function MusclePage({ params }: { params: { slug: string } 
           </section>
         </div>
 
-        {/* RIGHT (Sticky Quick Facts) */}
+        {/* RIGHT (Sticky Quick Facts + Private note) */}
         <div className="space-y-4">
           <QuickFactsCard
             title="Quick Facts"
@@ -127,6 +141,12 @@ export default async function MusclePage({ params }: { params: { slug: string } 
               { label: "US Window", value: muscle.has_ultrasound_window ? "Yes" : "No" },
             ]}
           />
+
+          {/* NEW: Private note box */}
+          <div className="rounded-2xl border p-4">
+            <div className="text-sm font-medium mb-2">Private note</div>
+            <NoteBox kind="muscle" slug={muscle.slug} initialNote={initialNote} />
+          </div>
         </div>
       </div>
     </div>

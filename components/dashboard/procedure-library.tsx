@@ -266,7 +266,7 @@ function TableView({ items }: { items: Proc[] }) {
           {items.length ? items.map((p) => (
             <TableRow key={p.id}>
               <TableCell className="font-medium">
-                <Link href={`/dashboard/atlas/procedures/${p.slug}`} className="hover:underline">
+                <Link href={`/dashboard/library/procedures/${p.slug}`} className="hover:underline">
                   {p.title}
                 </Link>
               </TableCell>
@@ -294,7 +294,7 @@ function TableView({ items }: { items: Proc[] }) {
 
 function ProcedureCard({ p }: { p: Proc }) {
   const router = useRouter();
-  const href = `/dashboard/atlas/procedures/${p.slug}`;
+  const href = `/dashboard/library/procedures/${p.slug}`;
   const muscles = ((p.key_muscles ?? []) as { name: string; slug: string }[]) || [];
   const extra = p.total_muscle_count && p.total_muscle_count > 4 ? p.total_muscle_count - 4 : 0;
 
@@ -320,7 +320,7 @@ function ProcedureCard({ p }: { p: Proc }) {
         {muscles.slice(0, 4).map((m, idx) => (
           <React.Fragment key={m.slug}>
             <Link
-              href={`/dashboard/atlas/muscles/${m.slug}`}
+              href={`/dashboard/library/muscles/${m.slug}`}
               className="hover:underline"
               onClick={(e) => e.stopPropagation()}
               onKeyDown={(e) => e.stopPropagation()}

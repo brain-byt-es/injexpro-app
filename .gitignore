@@ -43,3 +43,6 @@ next-env.d.ts
 # Supabase CLI artifacts (safe to commit migrations; ignore local state)
 .supabase/
 
+
+# clerk configuration (can include secrets)
+/.clerk/
