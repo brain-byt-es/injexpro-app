@@ -1,0 +1,20 @@
+{
+  "/api/health/supabase/route": "app/api/health/supabase/route.js",
+  "/api/log/error/route": "app/api/log/error/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/health/supabase/exchange/route": "app/api/health/supabase/exchange/route.js",
+  "/sign-up/[[...sign-up]]/page": "app/sign-up/[[...sign-up]]/page.js",
+  "/sign-in/[[...sign-in]]/page": "app/sign-in/[[...sign-in]]/page.js",
+  "/page": "app/page.js",
+  "/dashboard/library/procedures/[slug]/page": "app/dashboard/library/procedures/[slug]/page.js",
+  "/dashboard/resources/page": "app/dashboard/resources/page.js",
+  "/dashboard/library/complications/[slug]/page": "app/dashboard/library/complications/[slug]/page.js",
+  "/dashboard/library/muscles/page": "app/dashboard/library/muscles/page.js",
+  "/dashboard/library/complications/page": "app/dashboard/library/complications/page.js",
+  "/dashboard/library/procedures/page": "app/dashboard/library/procedures/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/library/page": "app/dashboard/library/page.js",
+  "/dashboard/library/muscles/[slug]/page": "app/dashboard/library/muscles/[slug]/page.js"
+}

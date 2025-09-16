@@ -1,0 +1,20 @@
+{
+  "/api/health/supabase/route": "/api/health/supabase",
+  "/api/log/error/route": "/api/log/error",
+  "/api/health/route": "/api/health",
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/api/health/supabase/exchange/route": "/api/health/supabase/exchange",
+  "/sign-up/[[...sign-up]]/page": "/sign-up/[[...sign-up]]",
+  "/sign-in/[[...sign-in]]/page": "/sign-in/[[...sign-in]]",
+  "/page": "/",
+  "/dashboard/library/procedures/[slug]/page": "/dashboard/library/procedures/[slug]",
+  "/dashboard/resources/page": "/dashboard/resources",
+  "/dashboard/library/complications/[slug]/page": "/dashboard/library/complications/[slug]",
+  "/dashboard/library/muscles/page": "/dashboard/library/muscles",
+  "/dashboard/library/complications/page": "/dashboard/library/complications",
+  "/dashboard/library/procedures/page": "/dashboard/library/procedures",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/library/page": "/dashboard/library",
+  "/dashboard/library/muscles/[slug]/page": "/dashboard/library/muscles/[slug]"
+}
