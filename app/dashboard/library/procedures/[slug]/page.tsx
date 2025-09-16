@@ -1,112 +1,132 @@
-import { notFound } from "next/navigation";
+// app/dashboard/library/procedures/[slug]/page.tsx
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { supabaseClient } from "@/lib/supabase/client";
+
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { QuickFactsCard } from "@/components/dashboard/quick-facts-card";
-import { ReferenceList, type RefItem } from "@/components/dashboard/reference-list";
-
-// Optional — remove if you’re not wiring saves/notes yet
-import { getSaved, getNote } from "@/lib/db/queries";
+import { ReferenceList } from "@/components/dashboard/reference-list";
 import { SaveHeart } from "@/components/dashboard/save-controls";
 
-export const revalidate = 0;
-export const dynamic = "force-dynamic";
-
-type ProcDetail = {
+// ---- Local types (keep minimal & permissive to avoid TS friction) ----
+type ProcedureRow = {
   id: string;
   slug: string;
   title: string;
   region: string | null;
   condition_type: string | null;
-  guidance: "US" | "EMG" | "Landmark" | string | null;
-  evidence_level: "A" | "B" | "C" | string | null;
+  guidance: string | null;
+  evidence_level: string | null;
   sites_min: number | null;
   sites_max: number | null;
   total_dose_min: number | null;
   total_dose_max: number | null;
-  key_muscles: { name: string; slug: string }[] | null;
+  key_muscles: any[] | null; // typically [{ name, slug }, ...] — keep as any[] to be flexible
   total_muscle_count: number | null;
 };
 
-type RefRow = { reference: RefItem | RefItem[] | null };
+type LiteratureReference = {
+  id: string;
+  title: string | null;
+  journal: string | null;
+  publication_year: number | null;
+  doi_url: string | null;
+};
 
-export default async function ProcedurePage({ params }: { params: { slug: string } }) {
+// Small display helper
+function formatRange(min: number | null, max: number | null, unit = ""): string {
+  if (min == null && max == null) return "—";
+  if (min != null && max != null) return `${min}–${max}${unit}`;
+  if (min != null) return `${min}${unit}`;
+  return `${max}${unit}`;
+}
+
+export default async function ProcedurePage({
+  // Next.js 15: params is async — await before using
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const theSlug = slug;
+
   const sb = await supabaseClient();
 
-  // ── Fetch main row (typed) + references (shape-agnostic) ─────────────────────
-  const [procRes, refsRes] = await Promise.all([
-    sb
-      .from("library_procedures")
-      .select(
-        [
-          "id",
-          "slug",
-          "title",
-          "region",
-          "condition_type",
-          "guidance",
-          "evidence_level",
-          "sites_min",
-          "sites_max",
-          "total_dose_min",
-          "total_dose_max",
-          "key_muscles",
-          "total_muscle_count",
-        ].join(",")
-      )
-      .eq("slug", params.slug)
-      .maybeSingle(), // never throws on 0 rows
-    sb
-      .from("procedure_references")
-      .select("reference:literature_references(id,title,journal,publication_year,doi_url)")
-      // If your link table has a FK/slug, keep this; otherwise remove this line.
-      .eq("procedure_slug", params.slug)
-      .order("reference(publication_year)", { ascending: false })
-      .limit(25),
-  ]);
+  // 1) Base procedure
+  const procRes = await sb
+    .from("library_procedures")
+    .select(
+      [
+        "id",
+        "slug",
+        "title",
+        "region",
+        "condition_type",
+        "guidance",
+        "evidence_level",
+        "sites_min",
+        "sites_max",
+        "total_dose_min",
+        "total_dose_max",
+        "key_muscles",
+        "total_muscle_count",
+      ].join(",")
+    )
+    .eq("slug", slug)
+    .maybeSingle();
 
-  const pErr = procRes.error;
-  // Force the union to the exact row shape (TS can’t infer DB types without generated definitions)
-  const proc = (procRes.data as unknown) as ProcDetail | null;
-
-  if (pErr) {
-    console.error("Supabase[procedure:detail]", {
-      message: (pErr as any)?.message,
-      hint: (pErr as any)?.hint,
-      details: (pErr as any)?.details,
-      code: (pErr as any)?.code,
-    });
-    throw new Error("Failed to load procedure.");
+  if (procRes.error) {
+    console.error("Supabase[procedure:load]", procRes.error);
+    notFound(); // keep user experience clean
   }
-  if (!proc) return notFound();
-
-  const rErr = refsRes.error;
-  if (rErr) {
-    console.error("Supabase[procedure:refs]", {
-      message: (rErr as any)?.message,
-      hint: (rErr as any)?.hint,
-      details: (rErr as any)?.details,
-      code: (rErr as any)?.code,
-    });
+  const proc = (procRes.data as unknown) as ProcedureRow | null;
+  if (!proc) {
+    notFound();
   }
 
-  // Reference list: flatten whether Supabase nested a single object or an array
-  const refItems: RefItem[] = ((refsRes.data ?? []) as RefRow[])
-    .flatMap((row) => (Array.isArray(row.reference) ? row.reference : row.reference ? [row.reference] : []))
-    .filter(Boolean);
+  // 2) References via junction table (FK: procedure_id → library_procedures.id)
+  const refsRes = await sb
+    .from("procedure_references")
+    .select("reference:literature_references(id,title,journal,publication_year,doi_url)")
+    .eq("procedure_id", proc.id)
+    .limit(25);
 
-  // Optional: updated_at from base table (if the view doesn’t expose it)
-  const metaRes = await sb.from("procedures").select("updated_at").eq("slug", params.slug).maybeSingle();
-  const updatedAt = (metaRes.data as { updated_at: string } | null)?.updated_at ?? null;
+  if (refsRes.error) {
+    console.error("Supabase[procedure:refs]", refsRes.error);
+  }
 
-  // Optional saves / notes (delete this block and the UI bits if not needed now)
-  const theSlug = proc.slug;
-  const [initiallySaved, initialNote] = await Promise.all([
-    typeof getSaved === "function" ? getSaved("procedure", theSlug) : Promise.resolve(false),
-    typeof getNote === "function" ? getNote("procedure", theSlug) : Promise.resolve(null),
-  ]);
+  const refs =
+    (((refsRes.data as unknown) as { reference: LiteratureReference | null }[] | null) ?? [])
+      .map((row) => row?.reference)
+      .filter(Boolean) as LiteratureReference[];
 
+  // Sort newest first without relying on complex nested order syntax
+  refs.sort((a, b) => (b.publication_year ?? 0) - (a.publication_year ?? 0));
+
+  // Transform for your <ReferenceList /> (shape is project-specific; keep as any[])
+  const refItems: any[] = refs.map((r) => ({
+    id: r.id,
+    title: r.title ?? "Untitled",
+    meta: [r.journal, r.publication_year ?? undefined].filter(Boolean).join(" • "),
+    href: r.doi_url ?? undefined,
+  }));
+
+  // 3) Saved state (RLS table)
+  const savedRes = await sb
+    .from("saved_items")
+    .select("id")
+    .eq("kind", "procedure")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  const initiallySaved = !!savedRes.data;
+
+  // 4) UpdatedAt — if you have it in another table/view, fetch it here.
+  // Leaving as null if not available to avoid extra failing queries.
+  const updatedAt: string | null = null;
+
+  // ---- Render (your layout preserved) ----
   return (
     <div className="p-6">
       <div className="grid gap-6 md:grid-cols-[1fr_320px]">
@@ -127,15 +147,17 @@ export default async function ProcedurePage({ params }: { params: { slug: string
           {/* Key muscles */}
           {proc.key_muscles?.length ? (
             <div className="flex flex-wrap gap-2">
-              {proc.key_muscles.slice(0, 8).map((m: { name: string; slug: string }) => (
-                <Link
-                  key={m.slug}
-                  href={`/dashboard/library/muscles/${m.slug}`}
-                  className="inline-flex items-center rounded-full border px-3 py-1 text-sm hover:bg-muted"
-                >
-                  {m.name}
-                </Link>
-              ))}
+              {(proc.key_muscles as any[])
+                .slice(0, 8)
+                .map((m: { name?: string; slug?: string }) => (
+                  <Link
+                    key={m.slug ?? m.name}
+                    href={`/dashboard/library/muscles/${m.slug}`}
+                    className="inline-flex items-center rounded-full border px-3 py-1 text-sm hover:bg-muted"
+                  >
+                    {m.name ?? m.slug}
+                  </Link>
+                ))}
               {proc.total_muscle_count && proc.total_muscle_count > 8 ? (
                 <span className="text-sm text-muted-foreground">
                   +{proc.total_muscle_count - 8} more
@@ -178,16 +200,9 @@ export default async function ProcedurePage({ params }: { params: { slug: string
               { label: "Guidance", value: proc.guidance ?? "—" },
               { label: "Condition", value: proc.condition_type ?? "—" },
             ]}
-          />          
+          />
         </div>
       </div>
     </div>
   );
-}
-
-/* utils */
-function formatRange(a: number | null, b: number | null, suffix = "") {
-  if (a == null && b == null) return "—";
-  if (a != null && b != null) return `${a}–${b}${suffix}`;
-  return `${a ?? b}${suffix}`;
 }

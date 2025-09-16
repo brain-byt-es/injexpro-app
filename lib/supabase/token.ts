@@ -1,14 +1,29 @@
-import { SignJWT } from 'jose';
+// lib/supabase/token.ts
+import { SignJWT } from "jose";
 
-const alg = 'HS256';
-const secret = new TextEncoder().encode(process.env.SUPABASE_JWT_SECRET!);
+const enc = new TextEncoder();
 
-/** Mint a Supabase-signed JWT that PostgREST will trust. */
-export async function signSupabaseJwt(sub: string, ttlSeconds = 600) {
+/**
+ * Sign a short-lived Supabase RLS JWT for the given user.
+ * Payload minimally needs `sub` and `role` for RLS.
+ */
+export async function signSupabaseJwt(userId: string, expiresInSec: number): Promise<string> {
+  const secret = process.env.SUPABASE_JWT_SECRET;
+  if (!secret) throw new Error("SUPABASE_JWT_SECRET is not set");
+
   const now = Math.floor(Date.now() / 1000);
-  return await new SignJWT({ sub, role: 'authenticated' })
-    .setProtectedHeader({ alg })
+
+  // Keep payload minimal to avoid leaking data into the token.
+  const payload = {
+    sub: userId,
+    role: "authenticated",
+    // optionally add org_id if/when you adopt org tenancy:
+    // org_id: "<org-id-here>"
+  };
+
+  return await new SignJWT(payload)
+    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
     .setIssuedAt(now)
-    .setExpirationTime(now + ttlSeconds)
-    .sign(secret);
+    .setExpirationTime(now + expiresInSec)
+    .sign(enc.encode(secret));
 }

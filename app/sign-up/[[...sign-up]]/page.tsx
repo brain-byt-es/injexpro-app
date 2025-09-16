@@ -1,52 +1,46 @@
-import { SignUp } from '@clerk/nextjs'
-import { ChartLine, Clock, ShieldCheck, Sparkles } from 'lucide-react'
+"use client";
+
+import { SignUp } from "@clerk/nextjs";
+import { useTheme } from "next-themes";
+import { dark } from "@clerk/themes";
+import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function SignUpPage() {
+  const { theme, systemTheme } = useTheme();
+  const current = theme === "system" ? systemTheme : theme;
+  const isDark = current === "dark";
+
   return (
-    <div className="bg-muted grid flex-1 lg:grid-cols-2">
-      <div className="hidden flex-1 items-center justify-end p-6 md:p-10 lg:flex">
-        <ul className="max-w-sm space-y-8">
-          <li>
-            <div className="flex items-center gap-2">
-              <Clock className="size-4" />
-              <p className="font-semibold">Save on development time</p>
-            </div>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Add authentication and user management to your app with just a few lines of code.
-            </p>
-          </li>
-          <li>
-            <div className="flex items-center gap-2">
-              <ChartLine className="size-4" />
-              <p className="font-semibold">Increase engagement</p>
-            </div>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Add intuitive UIs designed to decrease friction for your users.
-            </p>
-          </li>
-          <li>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="size-4" />
-              <p className="font-semibold">Protect your users</p>
-            </div>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Enable features like two-step verification and enjoy automatic security updates.
-            </p>
-          </li>
-          <li>
-            <div className="flex items-center gap-2">
-              <Sparkles className="size-4" />
-              <p className="font-semibold">Match your brand</p>
-            </div>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Theme our pre-built components, or integrate with our easy-to-use APIs.
-            </p>
-          </li>
-        </ul>
+    <div className="bg-muted relative min-h-screen flex flex-col items-center justify-center p-6 md:p-10">
+      {/* Toggle in top-right corner */}
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
       </div>
-      <div className="flex flex-1 items-center justify-center p-6 md:p-10 lg:justify-start">
-        <SignUp />
+
+      {/* Centered logo */}
+      <Logo className="mb-8 text-gray-900 dark:text-white" />
+
+      {/* Clerk card */}
+      <div className="w-full max-w-sm">
+        <SignUp
+          appearance={{
+            baseTheme: isDark ? dark : undefined,
+            layout: { logoPlacement: "none" },
+            variables: {
+              colorPrimary: "#3b82f6",
+              borderRadius: "0.75rem",
+            },
+            elements: {
+              card: "shadow-lg border border-border",
+              headerTitle: "hidden",
+              headerSubtitle: "hidden",
+              formButtonPrimary:
+                "bg-blue-500 hover:bg-blue-600 text-white",
+            },
+          }}
+        />
       </div>
     </div>
-  )
+  );
 }

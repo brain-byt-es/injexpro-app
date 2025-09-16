@@ -25,9 +25,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+    // Tell Clerk to use your in-app routes, not hosted pages
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+    >
       <html lang="en" className="h-full" suppressHydrationWarning>
-        <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}>
+        <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             {children}
           </ThemeProvider>
